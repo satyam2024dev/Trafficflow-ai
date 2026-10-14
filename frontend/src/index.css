@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-theme='dark'] {
+  --bg: 9 13 18; --panel: 17 24 32; --panel2: 24 33 44; --line: 38 50 64;
+  --ink: 232 237 243; --mute: 133 148 166;
+  --amber: 255 176 32; --ok: 52 211 153; --warn: 251 191 36; --bad: 248 87 87; --info: 96 165 250;
+}
+:root[data-theme='light'] {
+  --bg: 242 244 247; --panel: 255 255 255; --panel2: 246 248 251; --line: 220 226 234;
+  --ink: 17 24 39; --mute: 100 112 130;
+  --amber: 217 119 6; --ok: 5 150 105; --warn: 202 138 4; --bad: 220 38 38; --info: 37 99 235;
+}
+html, body, #root { height: 100%; }
+body {
+  @apply bg-bg text-ink font-sans antialiased;
+  background-image: radial-gradient(900px 400px at 85% -10%, rgb(var(--amber) / 0.07), transparent 60%),
+                    radial-gradient(700px 400px at -10% 110%, rgb(var(--info) / 0.06), transparent 60%);
+  background-attachment: fixed;
+}
+.num { @apply font-mono tabular-nums; }
+.card { @apply rounded-xl border border-line bg-panel; }
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-panel2 px-3 py-2 text-sm font-medium text-ink transition hover:border-amber/60 disabled:cursor-not-allowed disabled:opacity-50; }
+.btn-primary { @apply border-amber bg-amber text-black hover:brightness-110; }
+.btn-danger { @apply border-bad/50 text-bad hover:bg-bad/10; }
+.input { @apply w-full rounded-lg border border-line bg-panel2 px-3 py-2 text-sm text-ink outline-none transition focus:border-amber; }
+.label { @apply mb-1 block text-xs font-medium uppercase tracking-wider text-mute; }
+th.sortable { @apply cursor-pointer select-none hover:text-ink; }
+.leaflet-container { background: rgb(var(--panel2)); font-family: inherit; }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: rgb(var(--panel)); color: rgb(var(--ink)); }
+@media print {
+  aside, header, .no-print { display: none !important; }
+  body { background: white; color: black; }
+  .card { border-color: #ddd; background: white; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

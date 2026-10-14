@@ -1,0 +1,22 @@
+# Starts PostgreSQL only (the simplest reliable setup on Windows with Docker Desktop).
+# Run the backend and frontend locally - see README.
+services:
+  db:
+    image: postgres:16
+    container_name: trafficflow-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-trafficflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-trafficflow}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-trafficflow}"]
+      interval: 5s
+      retries: 10
+volumes:
+  pgdata:

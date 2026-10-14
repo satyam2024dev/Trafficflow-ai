@@ -1,0 +1,15 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+frontend/dist/
+.pytest_cache/
+tests/_videos/
+videos/*
+!videos/.gitkeep
+ai/models/*.pt
+ai/models/*.onnx
+!ai/models/.gitkeep
+*.log
